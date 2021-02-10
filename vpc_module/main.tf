@@ -1,7 +1,7 @@
  # Internet VPC
 resource "aws_vpc" "davorvpc" {
   
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.vpc_cidr
   instance_tenancy = "default"
   enable_dns_support = true
   enable_dns_hostnames = true
@@ -16,9 +16,9 @@ resource "aws_vpc" "davorvpc" {
 # Subnets
 resource "aws_subnet" "main-public-1" {
   vpc_id = aws_vpc.davorvpc.id
-  cidr_block = "10.0.1.0/24"
+  cidr_block = var.subnet_public_cidr
   map_public_ip_on_launch = true
-  availability_zone = "eu-west-2a"
+  availability_zone = var.availability_zone
 
   tags = {
     Name = "main-public-1"
@@ -27,9 +27,9 @@ resource "aws_subnet" "main-public-1" {
 
 resource "aws_subnet" "main-private-1" {
   vpc_id = aws_vpc.davorvpc.id
-  cidr_block = "10.0.4.0/24"
+  cidr_block = var.subnet_private_cidr
   map_public_ip_on_launch = false
-  availability_zone = "eu-west-2a"
+  availability_zone = var.availability_zone
 
   tags = {
     Name = "main-private-1"
@@ -76,7 +76,7 @@ resource "aws_route_table_association" "subnetassociation" {
 
 resource "aws_vpc_endpoint" "s3" {
   vpc_id            = aws_vpc.davorvpc.id
-  service_name      = "com.amazonaws.eu-west-2.s3"
+  service_name      = var.service_name_vpc_endpoint
   vpc_endpoint_type = "Gateway"
 
   route_table_ids = [ aws_route_table.main-private.id ]

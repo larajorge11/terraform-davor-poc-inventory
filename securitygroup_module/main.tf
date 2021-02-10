@@ -1,12 +1,12 @@
 resource "aws_security_group" "elastic_connection" {
   name        =  var.SG_NAME
-  vpc_id      =  aws_vpc.davorvpc.id
+  vpc_id      =  var.vpc_id
 
   ingress {
     from_port       = 6379
     to_port         = 6379
     protocol        = "tcp"
-    cidr_blocks = [aws_vpc.davorvpc.cidr_block]
+    cidr_blocks     = var.cidr_blocks
   }
 
   egress {
@@ -24,7 +24,7 @@ resource "aws_security_group" "elastic_connection" {
 
 resource "aws_security_group" "ssh_connection" {
   name        =  "sgelastic_instance"
-  vpc_id      =  aws_vpc.davorvpc.id
+  vpc_id      =  var.vpc_id
 
   ingress {
     from_port       = 22
