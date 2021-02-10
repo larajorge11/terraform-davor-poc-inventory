@@ -7,10 +7,6 @@ variable "PROFILE" {
   default = "davor"
 }
 
-variable "ACCESS_KEY" {
-  default = "AKIAYLTM6A22AUTRIUO4"
-}
+variable "ACCESS_KEY" {}
 
-variable "SECRET_ACCESS_KEY" {
-  default = "SZZIVwDeVCt5i36XhhYByPQ3Pj3p7T8LCIUYSgLl"
-}
+variable "SECRET_ACCESS_KEY" {}
