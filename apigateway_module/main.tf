@@ -1,6 +1,6 @@
 resource "aws_api_gateway_rest_api" "apilambda" {
-  name = "InventoryAPI"
-  description = "This the API for inventory"
+  name = var.apigw_name
+  description = var.description
   endpoint_configuration {
     types = ["REGIONAL"]
   }
@@ -9,7 +9,7 @@ resource "aws_api_gateway_rest_api" "apilambda" {
 resource "aws_api_gateway_resource" "inventoryresource" {
   rest_api_id = aws_api_gateway_rest_api.apilambda.id
   parent_id = aws_api_gateway_rest_api.apilambda.root_resource_id
-  path_part = "inventory"
+  path_part = var.resource
 }
 
 resource "aws_api_gateway_method" "inventorymethod" {
@@ -28,7 +28,7 @@ resource "aws_api_gateway_integration" "inventoryintegration" {
 
   integration_http_method = "POST"
   type = "AWS_PROXY"
-  uri = aws_lambda_function.lambda_api.invoke_arn
+  uri = var.uri
 }
 
 resource "aws_api_gateway_deployment" "inventorydeploy" {
@@ -37,5 +37,5 @@ resource "aws_api_gateway_deployment" "inventorydeploy" {
    ]
 
    rest_api_id = aws_api_gateway_rest_api.apilambda.id
-   stage_name  = "api"
+   stage_name  = var.deploy
 }
