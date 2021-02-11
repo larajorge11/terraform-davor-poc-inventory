@@ -48,9 +48,9 @@ pipeline {
                 sh """
                     #Working with aws credentials of the personal account
                     cd instance_module
-                    mkdir .ssh
+                    mkdir -p .ssh
                     cd .ssh
-                    ssh-keygen -f davorkey
+                    ssh-keygen -f davorkey -y
                     cd ../.. 
                     terraform apply -var aws_access_key='"${AWS_ACCESS_KEY_ID}"' \
                     -var aws_secret_key='"${AWS_SECRET_ACCESS_KEY}"' \
