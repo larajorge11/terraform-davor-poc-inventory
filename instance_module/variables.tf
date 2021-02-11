@@ -29,3 +29,7 @@ variable "vpc_security_group_ids" {}
 variable "instance_type" {
   default = "t2.micro"
 }
+
+variable "instance_username" {
+  default = "ec2-user"
+}
