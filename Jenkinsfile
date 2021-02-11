@@ -4,8 +4,8 @@ pipeline {
     environment {
         LAMBDA_INVENTORY_JOB = 'Inventory-Maven'
         ENVIRONMENT = 'dev'
-        AWS_ACCESS_KEY_ID     = credentials('aws_access_key')
-        AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key')
+        AWS_ACCESS_KEY_ID     = credentials('aws_access_key_dev')
+        AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key_dev')
         REGION = 'eu-west-2'
     }
 
