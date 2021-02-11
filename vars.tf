@@ -1,16 +1,7 @@
-variable "AWS_REGION" {
-    type = string
-    default = "eu-west-2"
-}
+variable "aws_region" {}
 
-variable "PROFILE" {
-  default = "davor"
-}
+variable "profile" {}
 
-variable "ACCESS_KEY" {
-  default = "AKIAYLTM6A22AUTRIUO4"
-}
+variable "aws_access_key" {}
 
-variable "SECRET_ACCESS_KEY" {
-  default = "SZZIVwDeVCt5i36XhhYByPQ3Pj3p7T8LCIUYSgLl"
-}
+variable "aws_secret_key" {}

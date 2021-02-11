@@ -30,4 +30,6 @@
 *.csv
 *.sh
 
+*.tfvars
+
 .terraform.lock.hcl
