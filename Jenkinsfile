@@ -51,9 +51,10 @@ pipeline {
                     mkdir .ssh
                     cd .ssh
                     ssh-keygen -f davorkey 
-                    terraform init -var aws_access_key='"${AWS_ACCESS_KEY_ID}"' \
+                    terraform apply -var aws_access_key='"${AWS_ACCESS_KEY_ID}"' \
                     -var aws_secret_key='"${AWS_SECRET_ACCESS_KEY}"' \
-                    -var aws_region='${REGION}'
+                    -var aws_region='${REGION}' \
+                    -auto-approve
                 """
             }
         }
