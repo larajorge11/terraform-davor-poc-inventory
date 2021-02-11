@@ -1,5 +1,11 @@
 pipeline {
     agent any
+
+    environment {
+        LAMBDA_INVENTORY_JOB = 'Inventory-Maven'
+    }
+
+
     stages {
         stage("SCM") {
             steps {
@@ -9,9 +15,15 @@ pipeline {
             }
         }
 
-        stage("Invoke_Java_code") {
+        stage("Build_Lambda_Function") {
             steps {
-                build job: 'Inventory-Maven', wait:false
+                build job: ${env.LAMBDA_INVENTORY_JOB}
+            }
+        }
+
+        stage("Terraform Init") {
+            steps {
+                sh "terraform init"
             }
         }
     }
