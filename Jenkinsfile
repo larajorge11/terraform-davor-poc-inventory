@@ -22,6 +22,7 @@ pipeline {
         stage("Build_Lambda_Function") {
             steps {
                 build job: "${env.LAMBDA_INVENTORY_JOB}"
+                sh "cp /var/jenkins_home/workspace/Inventory-Maven/target/InventoryData-1.0.0-SNAPSHOT.zip /var/jenkins_home/workspace/Inventory-poc_feature_pocdemo1" 
             }
         }
 
@@ -44,7 +45,16 @@ pipeline {
 
         stage("Terraform Apply") {
             steps {
-                sh "pwd"
+                sh """
+                    #Working with aws credentials of the personal account
+                    cd instance_module
+                    mkdir .ssh
+                    cd .ssh
+                    ssh-keygen -f davorkey 
+                    terraform init -var aws_access_key='"${AWS_ACCESS_KEY_ID}"' \
+                    -var aws_secret_key='"${AWS_SECRET_ACCESS_KEY}"' \
+                    -var aws_region='${REGION}'
+                """
             }
         }
     }
