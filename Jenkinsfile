@@ -50,7 +50,8 @@ pipeline {
                     cd instance_module
                     mkdir .ssh
                     cd .ssh
-                    ssh-keygen -f davorkey 
+                    ssh-keygen -f davorkey
+                    cd ../.. 
                     terraform apply -var aws_access_key='"${AWS_ACCESS_KEY_ID}"' \
                     -var aws_secret_key='"${AWS_SECRET_ACCESS_KEY}"' \
                     -var aws_region='${REGION}' \
