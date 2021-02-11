@@ -17,7 +17,7 @@ pipeline {
 
         stage("Build_Lambda_Function") {
             steps {
-                build job: ${env.LAMBDA_INVENTORY_JOB}
+                build job: "${env.LAMBDA_INVENTORY_JOB}"
             }
         }
 
