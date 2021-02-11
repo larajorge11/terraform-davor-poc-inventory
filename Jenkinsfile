@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         LAMBDA_INVENTORY_JOB = 'Inventory-Maven'
+        ENVIRONMENT = 'dev'
     }
 
 
@@ -23,7 +24,13 @@ pipeline {
 
         stage("Terraform Init") {
             steps {
-                sh "terraform init"
+                sh 'terraform init'
+            }
+        }
+
+        stage("Terraform Plan") {
+            steps {
+                sh 'terraform plan -var-file="dev.tfvars"'
             }
         }
     }
