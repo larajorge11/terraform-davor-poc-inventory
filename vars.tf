@@ -1,6 +1,6 @@
-variable "aws_region" {}
+#variable "aws_region" {}
 
-variable "profile" {}
+#variable "profile" {}
 
 variable "aws_access_key" {}
 
