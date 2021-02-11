@@ -12,10 +12,9 @@ pipeline {
             }
         }
 
-        stage("Build") {
+        stage("Invoke_Java_code") {
             steps {
-                sh "mvn -version"
-                sh "mvn clean install"
+                build job: 'Inventory-Maven', wait:false
             }
         }
     }
