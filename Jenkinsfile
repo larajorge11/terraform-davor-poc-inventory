@@ -2,6 +2,9 @@ pipeline {
     agent any
 
     environment {
+        GIT_URL="https://github.com/larajorge11/terraform-davor-poc-inventory.git"
+        CREDENTIALS_GIT_ID = 'github_lara'
+        GIT_BRANCH="feature/pocdemo1"
         LAMBDA_INVENTORY_JOB = 'Inventory-Maven'
         ENVIRONMENT = 'dev'
         AWS_ACCESS_KEY_ID     = credentials('aws_access_key_dev')
@@ -51,9 +54,9 @@ pipeline {
                 }
             }
             steps {
-                git branch: 'main',
-                credentialsId: 'github_lara',
-                url: 'https://github.com/larajorge11/terraform-davor-poc-inventory.git'
+                git branch: "${GIT_BRANCH}",
+                credentialsId: "${CREDENTIALS_GIT_ID}",
+                url: "${GIT_URL}"
             }
         }
 
@@ -128,11 +131,6 @@ pipeline {
                 """
             }
 
-        }
-    }
-    post {
-        always {
-            cleanWs()
         }
     }
 }
