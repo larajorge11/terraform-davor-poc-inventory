@@ -120,14 +120,14 @@ pipeline {
                 expression {
                     params.Destroy == true
                 }
-                steps {
+            }
+            steps {
                 sh """
                     echo 'Hello Davor'
 
                 """
             }
 
-            }
         }
     }
     post {
