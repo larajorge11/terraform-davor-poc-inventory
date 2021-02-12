@@ -11,7 +11,33 @@ pipeline {
 
 
     stages {
+
+        stage("Parameters") {
+            steps {
+                script {
+                    properties(
+                        [
+                            parameters(
+                                [
+                                    booleanParam(
+                                        defaultValue: false,
+                                        description: 'Destroy Infrastructure?'
+                                        name: 'Destroy'
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
+            }
+        }
+
         stage("SCM") {
+            when {
+                expression {
+                    params.Destroy == false
+                }
+            }
             steps {
                 git branch: 'main',
                 credentialsId: 'github_lara',
@@ -20,20 +46,42 @@ pipeline {
         }
 
         stage("Build_Lambda_Function") {
+            when {
+                expression {
+                    params.Destroy == false
+                }
+            }
             steps {
                 build job: "${env.LAMBDA_INVENTORY_JOB}"
                 sh "cp /var/jenkins_home/workspace/Inventory-Maven/target/InventoryData-1.0.0-SNAPSHOT.zip /var/jenkins_home/workspace/Inventory-poc_feature_pocdemo1" 
             }
         }
 
-        stage("Terraform Init") {
+        stage("Terraform Apply") {
+            when {
+                expression {
+                    params.Destroy == false
+                }
+            }
             steps {
-                sh 'terraform init'
+                sh """
+                    #Working with aws credentials of the personal account
+                    terraform apply -var aws_access_key='${AWS_ACCESS_KEY_ID}' \
+                    -var aws_secret_key='${AWS_SECRET_ACCESS_KEY}' \
+                    -var aws_region='${REGION}' \
+                    -auto-approve
+
+                """
             }
         }
 
 
         stage("Terraform Apply") {
+            when {
+                expression {
+                    params.Destroy == false
+                }
+            }
             steps {
                 sh """
                     #Working with aws credentials of the personal account
@@ -54,6 +102,21 @@ pipeline {
                     -var aws_region='${REGION}' \
                     -auto-approve
                 """
+            }
+        }
+
+        stage("Terraform Destroy") {
+            when {
+                expression {
+                    params.Destroy == true
+                }
+                steps {
+                sh """
+                    echo 'Hello Davor'
+
+                """
+            }
+
             }
         }
     }
