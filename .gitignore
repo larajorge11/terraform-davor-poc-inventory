@@ -29,6 +29,7 @@
 *.zip
 *.csv
 *.sh
+!elasticache.sh
 
 *.tfvars
 
