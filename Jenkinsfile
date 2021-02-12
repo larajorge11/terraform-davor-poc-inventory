@@ -15,19 +15,31 @@ pipeline {
         stage("Parameters") {
             steps {
                 script {
-                    properties(
-                        [
-                            parameters(
-                                [
-                                    booleanParam(
-                                        defaultValue: false,
-                                        description: 'Destroy Infrastructure?'
-                                        name: 'Destroy'
-                                    )
-                                ]
+                    properties([
+                        parameters([
+                            choice(
+                                choices: ['ONE', 'TWO'], 
+                                name: 'PARAMETER_01'
+                            ),
+                            booleanParam(
+                                defaultValue: true, 
+                                description: '', 
+                                name: 'BOOLEAN'
+                            ),
+                            text(
+                                defaultValue: '''
+                                this is a multi-line 
+                                string parameter example
+                                ''', 
+                                 name: 'MULTI-LINE-STRING'
+                            ),
+                            string(
+                                defaultValue: 'scriptcrunch', 
+                                name: 'STRING-PARAMETER', 
+                                trim: true
                             )
-                        ]
-                    )
+                        ])
+                    ])
                 }
             }
         }
