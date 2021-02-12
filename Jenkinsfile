@@ -35,18 +35,31 @@ pipeline {
 
         stage("Terraform Apply") {
             steps {
+                sh """
+                    #Working with aws credentials of the personal account
+                    cd instance_module
+                    if [ ! -d ".ssh" ]
+                    then
+                        mkdir .ssh
+                    fi
+                    cd .ssh
 
-                withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'lara_aws_cred',
-                    accessKeyVariable: 'AWS_ACCESS_KEY',
-                    secretKeyVariable: 'AWS_SECRET_KEY'
-                ]]) {
-                sh 'echo $AWS_ACCESS_KEY'
-                sh 'echo $AWS_SECRET_KEY'
-                }
-                
+                    if [ ! -f "davorkey" ]
+                    then
+                        ssh-keygen -f davorkey
+                    fi
+                    cd ../.. 
+                    terraform apply -var aws_access_key='${AWS_ACCESS_KEY_ID}' \
+                    -var aws_secret_key='${AWS_SECRET_ACCESS_KEY}' \
+                    -var aws_region='${REGION}' \
+                    -auto-approve
+                """
             }
+        }
+    }
+    post {
+        always {
+            cleanWs()
         }
     }
 }
