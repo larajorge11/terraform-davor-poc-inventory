@@ -20,26 +20,10 @@ pipeline {
                 script {
                     properties([
                         parameters([
-                            choice(
-                                choices: ['ONE', 'TWO'], 
-                                name: 'PARAMETER_01'
-                            ),
                             booleanParam(
-                                defaultValue: true, 
+                                defaultValue: false, 
                                 description: '', 
-                                name: 'BOOLEAN'
-                            ),
-                            text(
-                                defaultValue: '''
-                                this is a multi-line 
-                                string parameter example
-                                ''', 
-                                 name: 'MULTI-LINE-STRING'
-                            ),
-                            string(
-                                defaultValue: 'scriptcrunch', 
-                                name: 'STRING-PARAMETER', 
-                                trim: true
+                                name: 'Parameter_Terraform_Destroy'
                             )
                         ])
                     ])
@@ -50,7 +34,7 @@ pipeline {
         stage("SCM") {
             when {
                 expression {
-                    params.Destroy == false
+                    params.Parameter_Terraform_Destroy == false
                 }
             }
             steps {
@@ -63,7 +47,7 @@ pipeline {
         stage("Build_Lambda_Function") {
             when {
                 expression {
-                    params.Destroy == false
+                    params.Parameter_Terraform_Destroy == false
                 }
             }
             steps {
@@ -75,7 +59,7 @@ pipeline {
         stage("Terraform plan") {
             when {
                 expression {
-                    params.Destroy == false
+                    params.Parameter_Terraform_Destroy == false
                 }
             }
             steps {
@@ -92,7 +76,7 @@ pipeline {
         stage("Terraform Apply") {
             when {
                 expression {
-                    params.Destroy == false
+                    params.Parameter_Terraform_Destroy == false
                 }
             }
             steps {
@@ -121,7 +105,7 @@ pipeline {
         stage("Terraform Destroy") {
             when {
                 expression {
-                    params.Destroy == true
+                    params.Parameter_Terraform_Destroy == true
                 }
             }
             steps {
