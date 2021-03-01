@@ -6,6 +6,7 @@ pipeline {
         CREDENTIALS_GIT_ID = 'github_lara'
         GIT_BRANCH="feature/pocdemo1"
         LAMBDA_INVENTORY_JOB = 'Inventory-Maven'
+        LAMBDA_INVENTORY_LAYER_JOB = 'Inventory-Lambda-Layer'
         ENVIRONMENT = 'dev'
         AWS_ACCESS_KEY_ID     = credentials('aws_access_key_dev')
         AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key_dev')
@@ -44,6 +45,20 @@ pipeline {
             }
         }
 
+        stage("Build_Lambda_Layer") {
+            when {
+                expression {
+                    params.Parameter_Terraform_Destroy == false
+                }
+            }
+            steps {
+                build job: "${env.LAMBDA_INVENTORY_LAYER_JOB}"
+                sh """
+                    cp /var/jenkins_home/workspace/Inventory-Lambda-Layer/target/CacheInstanceConnection-1.0.0.zip /var/jenkins_home/workspace/Inventory-poc_feature_pocdemo1
+                """
+            }
+        }
+
         stage("Build_Lambda_Function") {
             when {
                 expression {
@@ -54,7 +69,6 @@ pipeline {
                 build job: "${env.LAMBDA_INVENTORY_JOB}"
                 sh """
                     cp /var/jenkins_home/workspace/Inventory-Maven/target/InventoryData-1.0.0-SNAPSHOT.zip /var/jenkins_home/workspace/Inventory-poc_feature_pocdemo1
-                    cp /var/jenkins_home/workspace/Inventory-Lambda-Layer/target/CacheInstanceConnection-1.0.0.zip /var/jenkins_home/workspace/Inventory-poc_feature_pocdemo1
                 """
             }
         }
