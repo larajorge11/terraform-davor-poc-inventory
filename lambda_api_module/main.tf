@@ -21,6 +21,7 @@ resource "aws_lambda_function" "lambda_api" {
 	role              = var.aws_iam_role_arn
   memory_size       = 512
   timeout           = 10
+  layers            = var.layers
 
   vpc_config {
     subnet_ids          = var.subnet_ids

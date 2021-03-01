@@ -29,3 +29,5 @@ variable "redis_port" {}
 variable "null_resource_lambda_function" {}
 
 variable "aws_s3_bucket_javabucket" {}
+
+variable "layers" {}

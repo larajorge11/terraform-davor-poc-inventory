@@ -33,3 +33,5 @@ variable "aws_secret_access_key" {}
 variable "null_resource_lambda_function" {}
 
 variable "aws_s3_bucket_javabucket" {}
+
+variable "layers" {}

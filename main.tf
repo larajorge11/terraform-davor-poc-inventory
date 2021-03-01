@@ -56,6 +56,12 @@ module "inventory_api_gateway" {
   uri                       = module.inventory_lambda_api.aws_lambda_function_arn
 }
 
+# Module: Lambda Layer
+module "inventory_lambda_layer" {
+  source = "./lambda_layer"
+  lambda_layer_cacheinstance_arn  = module.inventory_lambda_layer.lambda_layer_cacheinstance_arn
+}
+
 # Module: Lambda API Gateway - Elasticache
 module "inventory_lambda_api" {
     source                        = "./lambda_api_module"
@@ -72,26 +78,28 @@ module "inventory_lambda_api" {
     redis_port                    = module.inventory_elasticache.redis_port
     null_resource_lambda_function = module.inventory_null_resource.null_resource_lambda_function
     aws_s3_bucket_javabucket      = module.inventory_s3_java.aws_s3_bucket_javabucket
+    layers                        = [ module.inventory_lambda_layer.lambda_layer_cacheinstance_arn ]
 }
 
 # Module: Lambda S3 - Elasticache
 module "inventory_lambda_s3" {
-    source                  = "./lambda_s3_module"
-    lambda_function_name    = "davor19890806lambdaelastic"
-    lambda_handler          = "com.poc.csv.handler.InventoryRefresh"
-    source_arn              = module.inventory_s3_data.source_arn
-    s3_bucket                 = module.inventory_s3_java.aws_s3_bucket_id
-    s3_key                    = module.inventory_s3_java.aws_s3_bucket_object_key
-    runtime                   = "java8"
-    aws_iam_role_arn          = module.inventory_iam.aws_iam_role_arn
-    subnet_ids                = [ module.inventory_vpc.subnet_ids ]
-    security_group_ids        = [ module.inventory_securitygroup.security_group_ids ]
-    redis_host                = module.inventory_elasticache.redis_host
-    redis_port                = module.inventory_elasticache.redis_port
-    aws_access_key_id         = var.aws_access_key
-    aws_secret_access_key     = var.aws_secret_key
-    null_resource_lambda_function = module.inventory_null_resource.null_resource_lambda_function
-    aws_s3_bucket_javabucket      = module.inventory_s3_java.aws_s3_bucket_javabucket
+    source                          = "./lambda_s3_module"
+    lambda_function_name            = "davor19890806lambdaelastic"
+    lambda_handler                  = "com.poc.csv.handler.InventoryRefresh"
+    source_arn                      = module.inventory_s3_data.source_arn
+    s3_bucket                       = module.inventory_s3_java.aws_s3_bucket_id
+    s3_key                          = module.inventory_s3_java.aws_s3_bucket_object_key
+    runtime                         = "java8"
+    aws_iam_role_arn                = module.inventory_iam.aws_iam_role_arn
+    subnet_ids                      = [ module.inventory_vpc.subnet_ids ]
+    security_group_ids              = [ module.inventory_securitygroup.security_group_ids ]
+    redis_host                      = module.inventory_elasticache.redis_host
+    redis_port                      = module.inventory_elasticache.redis_port
+    aws_access_key_id               = var.aws_access_key
+    aws_secret_access_key           = var.aws_secret_key
+    null_resource_lambda_function   = module.inventory_null_resource.null_resource_lambda_function
+    aws_s3_bucket_javabucket        = module.inventory_s3_java.aws_s3_bucket_javabucket
+    layers                          = [ module.inventory_lambda_layer.lambda_layer_cacheinstance_arn ]
 }
 
 # Module: S3 Java package
