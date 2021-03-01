@@ -53,9 +53,7 @@ pipeline {
             }
             steps {
                 build job: "${env.LAMBDA_INVENTORY_LAYER_JOB}"
-                sh """
-                    cp /var/jenkins_home/workspace/Inventory-Lambda-Layer/target/CacheInstanceConnection-1.0.0.zip /var/jenkins_home/workspace/Inventory-poc_feature_pocdemo1
-                """
+                sh 'cp /var/jenkins_home/workspace/Inventory-Lambda-Layer/target/CacheInstanceConnection-1.0.0.zip /var/jenkins_home/workspace/Inventory-poc_feature_pocdemo1'
             }
         }
 
@@ -67,9 +65,7 @@ pipeline {
             }
             steps {
                 build job: "${env.LAMBDA_INVENTORY_JOB}"
-                sh """
-                    cp /var/jenkins_home/workspace/Inventory-Maven/target/InventoryData-1.0.0-SNAPSHOT.zip /var/jenkins_home/workspace/Inventory-poc_feature_pocdemo1
-                """
+                sh 'cp /var/jenkins_home/workspace/Inventory-Maven/target/InventoryData-1.0.0-SNAPSHOT.zip /var/jenkins_home/workspace/Inventory-poc_feature_pocdemo1'
             }
         }
 
