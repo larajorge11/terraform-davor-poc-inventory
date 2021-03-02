@@ -4,7 +4,7 @@ pipeline {
     environment {
         GIT_URL="https://github.com/larajorge11/terraform-davor-poc-inventory.git"
         CREDENTIALS_GIT_ID = 'github_lara'
-        GIT_BRANCH="feature/pocdemo1"
+        GIT_BRANCH="feature/lambda-layer"
         LAMBDA_INVENTORY_JOB = 'Inventory-Maven'
         LAMBDA_INVENTORY_LAYER_JOB = 'Inventory-Lambda-Layer'
         ENVIRONMENT = 'dev'
