@@ -13,16 +13,9 @@ pipeline {
     stages {
         stage("SCM") {
             steps {
-                git branch: 'main',
+                git branch: 'poc-csv-rds',
                 credentialsId: 'github_lara',
                 url: 'https://github.com/larajorge11/terraform-davor-poc-inventory.git'
-            }
-        }
-
-        stage("Build_Lambda_Function") {
-            steps {
-                build job: "${env.LAMBDA_INVENTORY_JOB}"
-                sh "cp /var/jenkins_home/workspace/Inventory-Maven/target/InventoryData-1.0.0-SNAPSHOT.zip /var/jenkins_home/workspace/Inventory-poc_feature_pocdemo1" 
             }
         }
 
