@@ -1,15 +1,15 @@
 terraform {
   required_providers {
     aws = {
-      source  = "hashicorp/aws"
-      version = ">= 3.43.0"
+      source           = "hashicorp/aws"
+      required_version = ">= 0.13"
     }
   }
-  required_version = "1.0.7"
 }
 
 provider "aws" {
-  region = var.aws_region
+  region  = var.aws_region
+  version = "3.22.0"
 }
 
 # Module: VPC, Subnets
