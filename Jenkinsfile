@@ -55,7 +55,7 @@ pipeline {
             }
             steps {
                 withAWS(credentials: 'aws_davor_credentials', region: "${REGION}") {
-                    sh "terraform plan"
+                    sh "terraform plan -var aws_region='${REGION}'"
                 }
             }
             
