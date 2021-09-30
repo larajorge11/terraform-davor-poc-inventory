@@ -6,7 +6,7 @@ output "subnet_ids" {
     value = aws_subnet.main-private-1.id
 }
 
-output "subnet_ids-2" {
+output "subnet_ids_2" {
     value = aws_subnet.main-private-2.id
 }
 
