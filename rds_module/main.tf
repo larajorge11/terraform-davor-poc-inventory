@@ -6,7 +6,7 @@ resource "aws_db_subnet_group" "postgresdb-subnet" {
 
 resource "aws_db_parameter_group" "postgresdb-parameters" {
     name = "postgresdb-parameters"
-    family = "postgres13.4"
+    family = "postgres13"
     description = "Postgres parameter group"
 
     parameter {
