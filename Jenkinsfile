@@ -29,10 +29,9 @@ pipeline {
             steps {
                 sh """
                     #Working with aws credentials of the personal account
-                    export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"
-                    export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"
-                    export AWS_DEFAULT_REGION="${REGION}"
-                    terraform plan
+                    terraform plan -var aws_access_key='${AWS_ACCESS_KEY_ID}' \
+                    -var aws_secret_key='${AWS_SECRET_ACCESS_KEY}' \
+                    -var aws_region='${REGION}'
                 """
             }
         }
@@ -49,8 +48,8 @@ pipeline {
                     cd .ssh
                     ssh-keygen -f davorkey -y
                     cd ../.. 
-                    terraform apply -var aws_access_key='"${AWS_ACCESS_KEY_ID}"' \
-                    -var aws_secret_key='"${AWS_SECRET_ACCESS_KEY}"' \
+                    terraform apply -var aws_access_key='${AWS_ACCESS_KEY_ID}' \
+                    -var aws_secret_key='${AWS_SECRET_ACCESS_KEY}' \
                     -var aws_region='${REGION}' \
                     -auto-approve
                 """
