@@ -55,10 +55,7 @@ pipeline {
             }
             steps {
                 withAWS(credentials: 'aws_davor_credentials', region: "${REGION}") {
-                    sh 'echo "hello Jenkins">hello.txt'
-                    s3Upload acl: 'Private', bucket: 'devopslee', file: 'hello.txt'
-                    s3Download bucket: 'devopslee', file: 'downloadedHello.txt', path: 'hello.txt'
-                    sh 'cat downloadedHello.txt'
+                    sh "terraform plan"
                 }
             }
             
