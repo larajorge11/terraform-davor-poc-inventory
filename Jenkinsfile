@@ -56,13 +56,29 @@ pipeline {
             steps {
                 withAWS(credentials: 'aws_davor_credentials', region: "${REGION}") {
                     sh """
-                    terraform apply -var profile='294602708338_davor-admin' \
-                    -var aws_region='${REGION}' \
+                    terraform apply -var aws_region='${REGION}' \
                     -auto-approve
                     """
                 }
             }
             
+        }
+
+        stage("Terraform Destroy") {
+            when {
+                expression {
+                    params.Parameter_Terraform_Destroy == true
+                }
+            }
+            steps {
+                withAWS(credentials: 'aws_davor_credentials', region: "${REGION}") {
+                    sh """
+                    terraform destroy -var aws_region='${REGION}' \
+                    -auto-approve
+                """
+                }
+            }
+
         }
 
 
