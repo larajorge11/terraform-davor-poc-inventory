@@ -1,3 +1,5 @@
+
+
 terraform {
   required_providers {
     aws = {
@@ -18,6 +20,6 @@ module "inventory_vpc" {
   vpc_cidr                  = "10.0.0.0/16"
   subnet_public_cidr        = "10.0.1.0/24"
   subnet_private_cidr       = "10.0.4.0/24"
-  availability_zone         = "eu-west-2a"
-  service_name_vpc_endpoint = "com.amazonaws.eu-west-2.s3"
+  availability_zone         = "us-east-1a"
+  service_name_vpc_endpoint = "com.amazonaws.us-east-1.s3"
 }
