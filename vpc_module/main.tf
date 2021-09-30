@@ -102,5 +102,5 @@ resource "aws_vpc_endpoint" "s3" {
   service_name      = var.service_name_vpc_endpoint
   vpc_endpoint_type = "Gateway"
 
-  route_table_ids = [ aws_route_table.main-private.id, aws_route_table.main-private-2 ]
+  route_table_ids = [ aws_route_table.main-private.id ]
 }
