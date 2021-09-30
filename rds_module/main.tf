@@ -10,8 +10,8 @@ resource "aws_db_parameter_group" "postgresdb-parameters" {
     description = "Postgres parameter group"
 
     parameter {
-        name = "max_allowed_packet"
-        value = "16777216"
+        name = "log_connections"
+        value = "1"
     }
 }
 
