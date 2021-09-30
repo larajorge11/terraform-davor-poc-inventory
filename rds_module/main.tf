@@ -30,7 +30,7 @@ resource "aws_db_instance" "mariadb" {
     vpc_security_group_ids = var.vpc_security_group_ids
     storage_type = "gp2"
     backup_retention_period = 30
-    availability_zone = var.vpc_security_group_ids
+    availability_zone = var.availability_zone
     skip_final_snapshot = true
     tags = {
         Name = "mariadb-instance"
