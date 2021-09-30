@@ -3,8 +3,8 @@ resource "aws_security_group" "elastic_connection" {
   vpc_id      =  var.vpc_id
 
   ingress {
-    from_port       = 6379
-    to_port         = 6379
+    from_port       = 5432
+    to_port         = 5432
     protocol        = "tcp"
     cidr_blocks     = var.cidr_blocks
   }
@@ -18,30 +18,6 @@ resource "aws_security_group" "elastic_connection" {
   }
 
   tags = {
-    Name = "allow_elastic"
-  }
-}
-
-resource "aws_security_group" "ssh_connection" {
-  name        =  "sgelastic_instance"
-  vpc_id      =  var.vpc_id
-
-  ingress {
-    from_port       = 22
-    to_port         = 22
-    protocol        = "tcp"
-    cidr_blocks     = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-    self        = true
-  }
-
-  tags = {
-    Name = "allow_ssh"
+    Name = "allow_rds"
   }
 }
