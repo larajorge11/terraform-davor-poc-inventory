@@ -1,4 +1,4 @@
-resource "aws_security_group" "elastic_connection" {
+resource "aws_security_group" "rds_connection" {
   name        =  var.SG_NAME
   vpc_id      =  var.vpc_id
 

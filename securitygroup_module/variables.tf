@@ -1,5 +1,5 @@
 variable "SG_NAME" {
-  default = "sgelastic"
+  default = "sgrds"
 }
 
 variable "vpc_id" {}
