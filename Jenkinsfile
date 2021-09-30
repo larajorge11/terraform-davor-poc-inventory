@@ -57,6 +57,7 @@ pipeline {
                 withAWS(credentials: 'aws_davor_credentials', region: "${REGION}") {
                     sh """
                     terraform apply -var profile='294602708338_davor-admin' \
+                    -var aws_region='${REGION}' \
                     -auto-approve
                     """
                 }
