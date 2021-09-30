@@ -22,4 +22,6 @@ module "inventory_securitygroup" {
 module "inventory_rds" {
     source                  = "./rds_module"
     subnet_ids              = [module.inventory_vpc.subnet_ids]
+    availability_zone       = [module.inventory_vpc.subnet_availability_zone]
+    vpc_security_group_ids  = [module.inventory_securitygroup.security_group_ids]
 }

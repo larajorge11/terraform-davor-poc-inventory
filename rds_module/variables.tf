@@ -7,3 +7,7 @@ variable "RDS_PASSWORD" {
 }
 
 variable subnet_ids {}
+
+variable availability_zone{}
+
+variable vpc_security_group_ids{}
