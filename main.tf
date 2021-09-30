@@ -1,18 +1,5 @@
 
 
-terraform {
-  required_providers {
-    aws = {
-      source           = "hashicorp/aws"
-    }
-  }
-}
-
-provider "aws" {
-  region  = var.aws_region
-  version = "3.22.0"
-}
-
 # Module: VPC, Subnets
 module "inventory_vpc" {
   source                    = "./vpc_module"
