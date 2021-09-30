@@ -18,3 +18,8 @@ module "inventory_securitygroup" {
     cidr_blocks             = [module.inventory_vpc.vpc_cidr]
     SG_NAME                 = "rdssg"
 }
+
+module "inventory_rds" {
+    source                  = "./rds_module"
+    subnet_ids              = [module.inventory_vpc.subnet_ids]
+}
