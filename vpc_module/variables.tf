@@ -12,8 +12,16 @@ variable "subnet_private_cidr" {
   default = "10.0.4.0/24"
 }
 
+variable "subnet_private_cidr_2" {
+  default = "10.0.5.0/24"
+}
+
 variable "availability_zone" {
   default = "eu-west-2a"
+}
+
+variable "availability_zone_2" {
+  default = "eu-west-2b"
 }
 
 variable "service_name_vpc_endpoint" {

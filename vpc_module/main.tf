@@ -36,6 +36,17 @@ resource "aws_subnet" "main-private-1" {
   }
 }
 
+resource "aws_subnet" "main-private-2" {
+  vpc_id = aws_vpc.davorvpc.id
+  cidr_block = var.subnet_private_cidr_2
+  map_public_ip_on_launch = false
+  availability_zone = var.availability_zone_2
+
+  tags = {
+    Name = "main-private-2"
+  }
+}
+
 # Internet Gateway
 resource "aws_internet_gateway" "main-gw" {
   vpc_id = aws_vpc.davorvpc.id
@@ -69,9 +80,21 @@ resource "aws_route_table" "main-private" {
   }
 }
 
+resource "aws_route_table" "main-private-2" {
+  vpc_id = aws_vpc.davorvpc.id
+  tags = {
+    Name = "main-private-2"
+  }
+}
+
 resource "aws_route_table_association" "subnetassociation" {
   subnet_id = aws_subnet.main-private-1.id
   route_table_id = aws_route_table.main-private.id
+}
+
+resource "aws_route_table_association" "subnetassociation-2" {
+  subnet_id = aws_subnet.main-private-2.id
+  route_table_id = aws_route_table.main-private-2.id
 }
 
 resource "aws_vpc_endpoint" "s3" {
@@ -79,5 +102,5 @@ resource "aws_vpc_endpoint" "s3" {
   service_name      = var.service_name_vpc_endpoint
   vpc_endpoint_type = "Gateway"
 
-  route_table_ids = [ aws_route_table.main-private.id ]
+  route_table_ids = [ aws_route_table.main-private.id, aws_route_table.main-private-2 ]
 }

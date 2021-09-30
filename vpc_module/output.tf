@@ -6,8 +6,16 @@ output "subnet_ids" {
     value = aws_subnet.main-private-1.id
 }
 
+output "subnet_ids-2" {
+    value = aws_subnet.main-private-2.id
+}
+
 output "subnet_availability_zone" {
     value = aws_subnet.main-private-1.availability_zone
+}
+
+output "subnet_availability_zone_2" {
+    value = aws_subnet.main-private-2.availability_zone
 }
 
 output "vpc_id" {
