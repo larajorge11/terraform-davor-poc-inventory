@@ -29,9 +29,10 @@ pipeline {
             steps {
                 sh """
                     #Working with aws credentials of the personal account
-                    terraform plan -var aws_access_key='"${AWS_ACCESS_KEY_ID}"' \
-                    -var aws_secret_key='"${AWS_SECRET_ACCESS_KEY}"' \
-                    -var aws_region='${REGION}'
+                    export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"
+                    export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"
+                    export AWS_DEFAULT_REGION="${REGION}"
+                    terraform plan
                 """
             }
         }
