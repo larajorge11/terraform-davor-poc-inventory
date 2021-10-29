@@ -20,7 +20,7 @@ resource "aws_db_instance" "postgres" {
     engine = "postgres"
     engine_version = "13.4"
     instance_class = "db.t3.small"
-    identifier = "postgres"
+    identifier = "davordb"
     name = "postgres"
     username = "root"
     password = var.RDS_PASSWORD
