@@ -18,7 +18,7 @@ resource "aws_db_parameter_group" "postgresdb-parameters" {
 resource "aws_db_instance" "postgres" {
     allocated_storage = 10
     engine = "postgres"
-    engine_version = "12.5"
+    engine_version = "13.4"
     instance_class = "db.t3.small"
     identifier = "davordb"
     name = "postgres"
