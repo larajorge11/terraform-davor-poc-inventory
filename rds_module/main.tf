@@ -32,6 +32,7 @@ resource "aws_db_instance" "postgres" {
     backup_retention_period = 30
     availability_zone = var.availability_zone
     skip_final_snapshot = true
+    publicly_accessible = true
     tags = {
         Name = "postgres-instance"
     }
